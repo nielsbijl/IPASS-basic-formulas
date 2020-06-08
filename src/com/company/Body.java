@@ -69,5 +69,19 @@ public class Body {
         return this.bodyFatPercentage;
     }
 
+    //calculators
+    void calculateBMRharrisBenedict(){
+        this.productionOfHeatAtCompleteRest = BMR.harrisBenedict(this);
+    }
+    void calculateBMRharrisBenedictRevised(){
+        this.productionOfHeatAtCompleteRest = BMR.harrisBenedictRevised(this);
+    }
+    void calculateBMRmifflinStJeor(){
+        this.productionOfHeatAtCompleteRest = BMR.mifflinStJeor(this);
+    }
+    void calculateBMRkatchMcArdle(){
+        this.productionOfHeatAtCompleteRest = BMR.katchMcArdle(this);
+    }
+
 
 }
