@@ -8,7 +8,7 @@ public class Main {
 //                            "--------------MALE BODY------------\n" +
 //                            "-----------------------------------\n");
 //
-//        Body niels = new Body("Niels", 83, 185, 18, "male", 17);
+        Body niels = new Body("Niels", 83, 185, 18, "male", 17);
 //
 //        niels.calculateBMRharrisBenedict();
 //        System.out.println("harrisBenedict = " + niels.getProductionOfHeatAtCompleteRest() + " cal");
@@ -49,9 +49,8 @@ public class Main {
 //        System.out.println("katchMcArdle = " + roos.getProductionOfHeatAtCompleteRest() + " cal");
 //        System.out.println("Rounded integer = " + Math.round(roos.getProductionOfHeatAtCompleteRest()) + " cal \n");
 
-        BodyConscious test = new BodyConscious();
-        System.out.println("BRM: " + test.calculateBMR());
-        System.out.println("TDEE: " + test.calculateTDEE());
+//        BodyConscious test = new BodyConscious();
+        System.out.println(BodyConscious.calculateCaloriesPerDay(-500, 100, niels, 1.4));
 
     }
 }

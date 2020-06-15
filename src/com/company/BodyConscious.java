@@ -1,14 +1,19 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BodyConscious {
     private Body body;
     private double physicalActivityLevel;
+    private double BMR;
+    private int TDEE;
 
     public BodyConscious(){
         this.setBodyByInput();
         this.setPhysicalActivityLevelByInput();
+        this.BMR = calculateBMR(this.body); //Basal Metabolic Rate
+        this.TDEE = calculateTDEE(this.BMR, this.physicalActivityLevel); //Total Daily Energy Expenditure
     }
 
     public void setBodyByInput(){
@@ -45,15 +50,33 @@ public class BodyConscious {
         this.physicalActivityLevel = input.nextDouble();
     }
 
-    public double calculateBMR(){
+    public static double calculateBMR(Body body){
         //Basal Metabolic Rate
-        this.body.calculateBMRmifflinStJeor();
+        body.calculateBMRmifflinStJeor();
         return body.getProductionOfHeatAtCompleteRest();
     }
-    public int calculateTDEE(){
+    public static int calculateTDEE(double BRM, double physicalActivityLevel){
         //Total Daily Energy Expenditure
         int tdee;
-        tdee = (int) (this.calculateBMR() * this.physicalActivityLevel);
+        tdee = (int) (BRM * physicalActivityLevel);
         return tdee;
     }
+    public static ArrayList calculateCaloriesPerDay(int calorieDefecitOrSurplus, int days, Body body, double physicalActivityLevel){
+        ArrayList<Integer> dailyCalories = new ArrayList<>();
+        for (int i = 0; i < days; i++) {
+            //calculate todays calories
+            double BMR = calculateBMR(body);
+            int TDEE = calculateTDEE(BMR, physicalActivityLevel);
+            int caloriesToday = TDEE + calorieDefecitOrSurplus;
+            dailyCalories.add(caloriesToday);
+
+            //set new body properties
+            double lostOrGainedMass = (Calorie.humanFatMass * calorieDefecitOrSurplus) / 1000; //kg
+            double newBodyMass = body.getMass() + lostOrGainedMass;
+            body.setMass(newBodyMass);
+        }
+        return dailyCalories;
+    }
+
+
 }
